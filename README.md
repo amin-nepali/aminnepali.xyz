@@ -1,6 +1,54 @@
+<div align="center">
+  
+  ![GitHub repo size](https://img.shields.io/github/repo-size/codewithsadee/wren)
+  ![GitHub stars](https://img.shields.io/github/stars/codewithsadee/wren?style=social)
+  ![GitHub forks](https://img.shields.io/github/forks/codewithsadee/wren?style=social)
+[![Twitter Follow](https://img.shields.io/twitter/follow/codewithsadee_?style=social)](https://twitter.com/intent/follow?screen_name=codewithsadee_)
+  [![YouTube Video Views](https://img.shields.io/youtube/views/Pup-yi4oMfU?style=social)](https://youtu.be/Pup-yi4oMfU)
 
-> Introducing Tiny File Manager [WH1Z-Edition], the compact and efficient solution for managing your files and folders with enhanced privacy and security features. Gone are the days of relying on external resources – I've stripped down the code to its core, making it truly lightweight and perfect for deployment in environments without internet access or outbound connections.
+  <br />
+  <br />
 
-> Designed for simplicity and speed, Tiny File Manager [WH1Z-Edition] retains all the essential functionalities you need for storing, uploading, editing, and managing your files directly from your web browser. With a single-file PHP setup, you can effortlessly drop it into any folder on your server and start organizing your files immediately.
+  <h2 align="center">Wren - Personal Blog Website</h2>
 
-> What sets Tiny File Manager [WH1Z-Edition] apart is its focus on privacy and security. By removing the reliance on external domains for CSS and JS resources, your data stays localized and protected from potential vulnerabilities or leaks. This makes it an ideal choice for scenarios where data integrity and confidentiality are paramount, including RED TEAMING exercises or restricted server environments.
+  Wren is a fully responsive personal blog website, <br />Responsive for all devices, build using HTML, CSS, and JavaScript.
+
+  <a href="https://codewithsadee.github.io/wren/"><strong>➥ Live Demo</strong></a>
+
+</div>
+
+<br />
+
+### Demo Screeshots
+
+![Wren Desktop Demo](./readme-images/desktop.png "Desktop Demo")
+
+### Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+* [Git](https://git-scm.com/downloads "Download Git") must be installed on your operating system.
+
+### Run Locally
+
+To run **Wren** locally, run this command on your git bash:
+
+Linux and macOS:
+
+```bash
+sudo git clone https://github.com/codewithsadee/wren.git
+```
+
+Windows:
+
+```bash
+git clone https://github.com/codewithsadee/wren.git
+```
+
+### Contact
+
+If you want to contact with me you can reach me at [Twitter](https://www.twitter.com/codewithsadee).
+
+### License
+
+[MIT](https://choosealicense.com/licenses/mit/)
