@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Playlist</title>
+</head>
+<body>
+    <h1>Video Playlist</h1>
+    <div id="videoList"></div>
+
+    <div id="videoPlayer">
+        <video id="customVideo" controls>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        const videoList = document.getElementById('videoList');
+        const customVideo = document.getElementById('customVideo');
+
+        // Define your video files and their names
+        const videoFiles = [
+            { name: 'Video 1', file: 'videos/video1.mp4' },
+            { name: 'Video 2', file: 'videos/video2.mp4' },
+            // Add more video objects with names and file paths
+        ];
+
+        // Function to play selected video
+        function playVideo(index) {
+            if (index >= 0 && index < videoFiles.length) {
+                const video = videoFiles[index];
+                customVideo.src = video.file;
+                customVideo.load();
+                customVideo.play();
+            }
+        }
+
+        // Generate video playlist
+        videoFiles.forEach((video, index) => {
+            const videoItem = document.createElement('div');
+            videoItem.innerHTML = `<a href="#" onclick="playVideo(${index}); return false;">${video.name}</a>`;
+            videoList.appendChild(videoItem);
+        });
+
+        // Play the first video by default
+        if (videoFiles.length > 0) {
+            playVideo(0);
+        }
+    </script>
+</body>
+</html>
