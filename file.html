@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Server Status</title>
+</head>
+<body>
+    <h1>File Server Status</h1>
+    <div id="status">Checking server status...</div>
+    <div id="file-list"></div>
+
+    <script>
+        const serverUrl = 'http://192.168.101.2:8000';
+
+        async function checkServer() {
+            try {
+                const response = await fetch(serverUrl);
+                if (response.ok) {
+                    document.getElementById('status').innerText = 'Server is online';
+                    const text = await response.text();
+                    document.getElementById('file-list').innerHTML = text;
+                } else {
+                    document.getElementById('status').innerText = 'Server is offline';
+                }
+            } catch (error) {
+                document.getElementById('status').innerText = 'Server is offline';
+            }
+        }
+
+        checkServer();
+    </script>
+</body>
+</html>
