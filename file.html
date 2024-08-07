@@ -11,19 +11,21 @@
     <div id="file-list"></div>
 
     <script>
-        const serverUrl = 'http://192.168.101.2:8000';
+        const serverUrl = 'https://abcd1234.ngrok.io';  // Replace with your ngrok URL
 
         async function checkServer() {
             try {
                 const response = await fetch(serverUrl);
+                console.log("Response status:", response.status);
                 if (response.ok) {
                     document.getElementById('status').innerText = 'Server is online';
                     const text = await response.text();
                     document.getElementById('file-list').innerHTML = text;
                 } else {
-                    document.getElementById('status').innerText = 'Server is offline';
+                    document.getElementById('status').innerText = 'Server returned status: ' + response.status;
                 }
             } catch (error) {
+                console.error("Error fetching from server:", error);
                 document.getElementById('status').innerText = 'Server is offline';
             }
         }
