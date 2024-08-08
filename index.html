@@ -307,7 +307,14 @@ const vertex = `
                 <a href="#contact">Contact</a>
             </li>
             <li>
-                <a href="project/study_files/index.html">Portal</a>
+                <button style="border: none; background: transparent;" onclick="portal()">
+                    <a href="">portal</a>
+                  </button>
+		    <script>
+                function portal(){
+                    window.location.assign("project/study_files/index.html");
+                }
+            </script>
             </li>
             <style>
                 .shadow a:hover {
