@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayPal</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            background-color: #2507cc;
+            width: 100%;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            margin: 0;
+        }
+
+        .nav-buttons li {
+            margin-left: 20px;
+        }
+
+        .nav-buttons a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .search-button, .transfer-button {
+            padding: 12px 20px;
+            background-color: #2e03f0e7;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .transfer-button {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .balance-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .balance-text {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        /* Loader and Popup */
+        .loader-container, .popup, .confirm-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader-container {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup, .confirm-popup {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content, .confirm-popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .popup-button, .confirm-popup-button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #1b04eb;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Loader Styles */
+        .pl {
+            display: block;
+            width: 6.25em;
+            height: 6.25em;
+        }
+        .pl__ring, .pl__ball {
+            animation: ring 2s ease-out infinite;
+        }
+        .pl__ball {
+            animation-name: ball;
+        }
+
+        /* Dark theme  */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: hsl(var(--hue),10%,10%);
+                --fg: hsl(var(--hue),10%,90%);
+            }
+        }
+
+        /* Animation */
+        @keyframes ring {
+            from {
+                stroke-dasharray: 0 257 0 0 1 0 0 258;
+            }
+            25% {
+                stroke-dasharray: 0 0 0 0 257 0 258 0;
+            }
+            50%, to {
+                stroke-dasharray: 0 0 0 0 0 515 0 0;
+            }
+        }
+        @keyframes ball {
+            from, 50% {
+                animation-timing-function: ease-in;
+                stroke-dashoffset: 1;
+            }
+            64% {
+                animation-timing-function: ease-in;
+                stroke-dashoffset: -109;
+            }
+            78% {
+                animation-timing-function: ease-in;
+                stroke-dashoffset: -145;
+            }
+            92% {
+                animation-timing-function: ease-in;
+                stroke-dashoffset: -157;
+            }
+            57%, 71%, 85%, 99%, to {
+                animation-timing-function: ease-out;
+                stroke-dashoffset: -163;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="https://www.paypal.com/" target="_blank">
+                <img src="https://pngimg.com/d/paypal_PNG4.png" alt="PayPal Logo" width="120">
+            </a>
+            <ul class="nav-buttons">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Security</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="search-box">
+            <input type="text" class="search-input" id="username" placeholder="@username">
+            <button class="search-button">Search</button>
+        </div>
+        <div class="search-box">
+            <input type="number" class="search-input" id="transferAmount" placeholder="$">
+            <button class="transfer-button" onclick="confirmTransaction()">Transfer</button>
+        </div>
+        <div class="balance-box">
+            <img src="aa.png" alt="Small Image" width="80">
+            <p class="balance-text">Available Balance: $<span id="balanceAmount">777275566</span></p>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader-container" id="loader">
+        <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                    <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                    <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                </linearGradient>
+                <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                    <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                </linearGradient>
+            </defs>
+            <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+            <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+        </svg>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <img src="la.jpg" alt="Success Image" width="60" style="margin-bottom: 10px;">
+            <p>Your transaction of $<span id="transactionAmount"></span> was successful!</p>
+            <p>You will receive $<span id="receivedAmount"></span> after some time.</p>
+            <p>New Balance: $<span id="newBalance"></span></p>
+            <button class="popup-button" onclick="goToHomePage()">Go to Home Page</button>
+        </div>
+    </div>
+
+    <!-- Confirm Popup -->
+    <div class="confirm-popup" id="confirmPopup">
+        <div class="confirm-popup-content">
+            <p>Do you want to confirm the transfer of $<span id="confirmAmount"></span> to <span id="confirmUsername"></span>? Click on the button to confirm.</p>
+            <button class="confirm-popup-button" onclick="proceedTransaction()">Confirm</button>
+            <button class="confirm-popup-button" onclick="cancelTransaction()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        let balance = 777275566;
+
+        function confirmTransaction() {
+            var amount = document.getElementById('transferAmount').value;
+            var username = document.getElementById('username').value;
+
+            if (amount <= 0 || isNaN(amount) || username.trim() === '') {
+                alert('Please enter a valid amount and username.');
+                return;
+            }
+
+            // Show confirmation popup
+            document.getElementById('confirmAmount').innerText = amount;
+            document.getElementById('confirmUsername').innerText = username;
+            document.getElementById('confirmPopup').style.display = 'flex';
+        }
+
+        function proceedTransaction() {
+            // Hide confirmation popup
+            document.getElementById('confirmPopup').style.display = 'none';
+
+            // Show the loader
+            document.getElementById('loader').style.display = 'flex';
+
+            // Simulate a delay for the transaction
+            setTimeout(function() {
+                // Hide the loader
+                document.getElementById('loader').style.display = 'none';
+
+                // Show the popup
+                showPopup();
+            }, 3000); // 3 seconds delay for demonstration
+        }
+
+        function cancelTransaction() {
+            // Hide confirmation popup
+            document.getElementById('confirmPopup').style.display = 'none';
+        }
+
+        function showPopup() {
+            var amount = document.getElementById('transferAmount').value;
+            var receivedAmount = amount - (amount * 0.02); // Example fee deduction
+
+            // Update balance
+            balance -= amount;
+
+            // Show transaction details
+            document.getElementById('transactionAmount').innerText = amount;
+            document.getElementById('receivedAmount').innerText = receivedAmount.toFixed(2);
+            document.getElementById('newBalance').innerText = balance.toFixed(2);
+            document.getElementById('balanceAmount').innerText = balance.toFixed(2);
+
+            // Show popup
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function goToHomePage() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
