@@ -11,7 +11,7 @@
 
     <div class="wrapper">
         <section>
-            <h1>Login <br><div style="font-size: 12px;">[username = admin & password = root]</div></h1>
+            <h1>Login <br><div style="font-size: 12px;"></div></h1>
             <div class="input-box">
                 <input id="username" type="text"  name="username" placeholder="Username" required>
             </div>
@@ -33,9 +33,9 @@
                     var user = document.getElementById('username').value;
                     var pass = document.getElementById('password').value;
 
-                    if(user == 'admin' && pass == 'root'){
+                    if(user == 'bibas' && pass == 'amin'){
                         alert ("Login Successfull. Enjoy.");
-                        window.location.assign("./index.html");
+                        window.location.assign("./habibi/");
                     }
                     else{
                         alert("Username or Password incorrect. Please try again.");
