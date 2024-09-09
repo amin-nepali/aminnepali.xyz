@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PDF with Text</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+        #inputImage {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+        .inputField {
+            margin: 10px 0;
+            width: 90%;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Enter Details to Appear on Image</h2>
+    <div class="container">
+        <img id="inputImage" src="image.png" alt="Organization Template">
+        <div style="position: absolute; top: 200px; left: 100px; color: black;">
+            <input id="text1" class="inputField" type="text" placeholder="Enter text for प.श.">
+        </div>
+        <div style="position: absolute; top: 240px; left: 100px; color: black;">
+            <input id="text2" class="inputField" type="text" placeholder="Enter text for च.न.">
+        </div>
+        <div style="position: absolute; top: 700px; left: 80px; color: black;">
+            <input id="text3" class="inputField" type="text" placeholder="Enter text for date (मिति)">
+        </div>
+    </div>
+    <br>
+    <button onclick="generatePDF()">Download as PDF</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'px',
+                format: [794, 1123]
+            });
+
+            const img = new Image();
+            img.src = "image.png";
+            img.onload = function () {
+                // Add image to PDF
+                doc.addImage(img, 'PNG', 0, 0, 794, 1123);
+                
+                // Add text to PDF (Adjust positions as needed)
+                doc.setFontSize(14);
+                doc.text(document.getElementById('text1').value, 100, 200);  // For प.श.
+                doc.text(document.getElementById('text2').value, 100, 240);  // For च.न.
+                doc.text(document.getElementById('text3').value, 100, 700);  // For मिति
+                
+                // Save the PDF
+                doc.save("output.pdf");
+            };
+        }
+    </script>
+
+</body>
+</html>
