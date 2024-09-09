@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image to PDF with Text</title>
+    <title>Interactive Image to PDF</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,50 +18,64 @@
             width: 100%;
             max-width: 620px;  /* half of the original width to fit the screen */
             height: auto;
+            cursor: crosshair;
         }
         .inputField {
             margin: 10px 0;
             width: 90%;
             max-width: 500px;
         }
+        #coords {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <h2>Enter Details to Appear on Image</h2>
+    <h2>Click on the Image to Add Text</h2>
     <div class="container">
         <img id="inputImage" src="image.png" alt="Organization Template">
-        
-        <!-- Enter data for प.श. -->
-        <div style="position: absolute; top: 280px; left: 780px; color: black;">
-            <input id="text1" class="inputField" type="text" placeholder="Enter text for प.श.">
-        </div>
-        
-        <!-- Enter data for च.न. -->
-        <div style="position: absolute; top: 320px; left: 780px; color: black;">
-            <input id="text2" class="inputField" type="text" placeholder="Enter text for च.न.">
-        </div>
-
-        <!-- Enter data for मिति -->
-        <div style="position: absolute; top: 250px; left: 950px; color: black;">
-            <input id="text3" class="inputField" type="text" placeholder="Enter text for मिति">
-        </div>
-        
-        <!-- Enter main message centered -->
-        <div style="position: absolute; top: 600px; left: 300px; color: black; width: 600px; text-align: center;">
-            <textarea id="mainMessage" class="inputField" placeholder="Enter main message" rows="5"></textarea>
-        </div>
-        
-        <!-- Enter subject section -->
-        <div style="position: absolute; top: 800px; left: 300px; color: black; width: 600px; text-align: center;">
-            <input id="subjectSection" class="inputField" type="text" placeholder="Enter subject section">
-        </div>
     </div>
-    <br>
+    
+    <input id="textInput" class="inputField" type="text" placeholder="Enter text here">
+    <button onclick="addText()">Add Text</button>
+
+    <div id="coords"></div>
     <button onclick="generatePDF()">Download as PDF</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+        let positions = [];
+        
+        document.getElementById('inputImage').addEventListener('click', function(event) {
+            const rect = event.target.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            document.getElementById('coords').innerText = `X: ${x}, Y: ${y}`;
+            positions.push({ x, y });
+        });
+
+        function addText() {
+            const text = document.getElementById('textInput').value;
+            if (positions.length > 0) {
+                const lastPosition = positions[positions.length - 1];
+                positions[positions.length - 1].text = text;
+
+                // Optionally show the text on the image (visual feedback)
+                const div = document.createElement('div');
+                div.style.position = 'absolute';
+                div.style.left = lastPosition.x + 'px';
+                div.style.top = lastPosition.y + 'px';
+                div.style.color = 'black';
+                div.style.fontSize = '14px';
+                div.textContent = text;
+                document.querySelector('.container').appendChild(div);
+
+                document.getElementById('textInput').value = '';  // Clear input field
+            }
+        }
+
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({
@@ -75,19 +89,15 @@
             img.onload = function () {
                 // Add image to PDF
                 doc.addImage(img, 'PNG', 0, 0, 1240, 1754);
-                
-                // Add text to PDF (Adjust positions as needed)
+
+                // Add text to PDF
                 doc.setFontSize(14);
-                doc.text(document.getElementById('text1').value, 780, 280);  // For प.श.
-                doc.text(document.getElementById('text2').value, 780, 320);  // For च.न.
-                doc.text(document.getElementById('text3').value, 950, 250);  // For मिति
-                
-                // Add main message centered
-                doc.text(document.getElementById('mainMessage').value, 620, 600, { align: 'center' });
-                
-                // Add subject section
-                doc.text(document.getElementById('subjectSection').value, 620, 800, { align: 'center' });
-                
+                positions.forEach(pos => {
+                    if (pos.text) {
+                        doc.text(pos.text, pos.x, pos.y);
+                    }
+                });
+
                 // Save the PDF
                 doc.save("output.pdf");
             };
