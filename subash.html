@@ -16,7 +16,7 @@
         }
         #inputImage {
             width: 100%;
-            max-width: 600px;
+            max-width: 620px;  /* half of the original width to fit the screen */
             height: auto;
         }
         .inputField {
@@ -31,14 +31,30 @@
     <h2>Enter Details to Appear on Image</h2>
     <div class="container">
         <img id="inputImage" src="image.png" alt="Organization Template">
-        <div style="position: absolute; top: 200px; left: 100px; color: black;">
+        
+        <!-- Enter data for प.श. -->
+        <div style="position: absolute; top: 280px; left: 780px; color: black;">
             <input id="text1" class="inputField" type="text" placeholder="Enter text for प.श.">
         </div>
-        <div style="position: absolute; top: 240px; left: 100px; color: black;">
+        
+        <!-- Enter data for च.न. -->
+        <div style="position: absolute; top: 320px; left: 780px; color: black;">
             <input id="text2" class="inputField" type="text" placeholder="Enter text for च.न.">
         </div>
-        <div style="position: absolute; top: 700px; left: 80px; color: black;">
-            <input id="text3" class="inputField" type="text" placeholder="Enter text for date (मिति)">
+
+        <!-- Enter data for मिति -->
+        <div style="position: absolute; top: 250px; left: 950px; color: black;">
+            <input id="text3" class="inputField" type="text" placeholder="Enter text for मिति">
+        </div>
+        
+        <!-- Enter main message centered -->
+        <div style="position: absolute; top: 600px; left: 300px; color: black; width: 600px; text-align: center;">
+            <textarea id="mainMessage" class="inputField" placeholder="Enter main message" rows="5"></textarea>
+        </div>
+        
+        <!-- Enter subject section -->
+        <div style="position: absolute; top: 800px; left: 300px; color: black; width: 600px; text-align: center;">
+            <input id="subjectSection" class="inputField" type="text" placeholder="Enter subject section">
         </div>
     </div>
     <br>
@@ -51,20 +67,26 @@
             const doc = new jsPDF({
                 orientation: 'portrait',
                 unit: 'px',
-                format: [794, 1123]
+                format: [1240, 1754]
             });
 
             const img = new Image();
             img.src = "image.png";
             img.onload = function () {
                 // Add image to PDF
-                doc.addImage(img, 'PNG', 0, 0, 794, 1123);
+                doc.addImage(img, 'PNG', 0, 0, 1240, 1754);
                 
                 // Add text to PDF (Adjust positions as needed)
                 doc.setFontSize(14);
-                doc.text(document.getElementById('text1').value, 100, 200);  // For प.श.
-                doc.text(document.getElementById('text2').value, 100, 240);  // For च.न.
-                doc.text(document.getElementById('text3').value, 100, 700);  // For मिति
+                doc.text(document.getElementById('text1').value, 780, 280);  // For प.श.
+                doc.text(document.getElementById('text2').value, 780, 320);  // For च.न.
+                doc.text(document.getElementById('text3').value, 950, 250);  // For मिति
+                
+                // Add main message centered
+                doc.text(document.getElementById('mainMessage').value, 620, 600, { align: 'center' });
+                
+                // Add subject section
+                doc.text(document.getElementById('subjectSection').value, 620, 800, { align: 'center' });
                 
                 // Save the PDF
                 doc.save("output.pdf");
