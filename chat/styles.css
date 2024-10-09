@@ -1,0 +1,54 @@
+/* Basic Styling for Full-Page Video Layout */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.video-container {
+    display: flex;
+    width: 100%;
+    height: 80vh;
+}
+
+.video-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    position: relative;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.controls {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
