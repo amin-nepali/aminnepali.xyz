@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Chat with Skip</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="video-container">
+        <!-- Own Video -->
+        <div class="video-box">
+            <video id="localVideo" autoplay muted></video>
+        </div>
+
+        <!-- Remote User Video (Placeholder) -->
+        <div class="video-box">
+            <video id="remoteVideo" autoplay></video>
+        </div>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="controls">
+        <button id="skipBtn">Skip to Next User</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
