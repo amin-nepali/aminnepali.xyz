@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled XML Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+<h2>URL Sitemap</h2>
+<table id="sitemapTable">
+    <tr>
+        <th>URL</th>
+        <th>Last Modified</th>
+        <th>Priority</th>
+    </tr>
+</table>
+
+<script>
+    const xmlData = `
+        <urlset>
+            <url>
+                <loc>https://aminnepali.xyz/</loc>
+                <lastmod>2024-09-09T12:28:41+00:00</lastmod>
+                <priority>1.00</priority>
+            </url>
+            <url>
+                <loc>https://aminnepali.xyz/project/project.html</loc>
+                <lastmod>2024-09-09T12:28:41+00:00</lastmod>
+                <priority>0.80</priority>
+            </url>
+            <url>
+                <loc>https://aminnepali.xyz/project/study_files/index.html</loc>
+                <lastmod>2024-09-09T12:28:41+00:00</lastmod>
+                <priority>0.64</priority>
+            </url>
+            <url>
+                <loc>https://aminnepali.xyz/project/mcq/multiple.html</loc>
+                <lastmod>2024-09-09T12:28:41+00:00</lastmod>
+                <priority>0.64</priority>
+            </url>
+            <url>
+                <loc>https://aminnepali.xyz/project/calculator/calculator.html</loc>
+                <lastmod>2024-09-09T12:28:41+00:00</lastmod>
+                <priority>0.64</priority>
+            </url>
+            <url>
+                <loc>https://aminnepali.xyz/project/student%20id/studentid.html</loc>
+                <lastmod>2024-09-09T12:28:41+00:00</lastmod>
+                <priority>0.64</priority>
+            </url>
+            <url>
+                <loc>https://aminnepali.xyz/project/html_ide/htmlide.html</loc>
+                <lastmod>2024-09-09T12:28:41+00:00</lastmod>
+                <priority>0.64</priority>
+            </url>
+            <url>
+                <loc>https://aminnepali.xyz/project/chat.html</loc>
+                <lastmod>2024-09-09T12:28:41+00:00</lastmod>
+                <priority>0.64</priority>
+            </url>
+        </urlset>
+    `;
+
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlData, "application/xml");
+    const urls = xmlDoc.getElementsByTagName("url");
+    const table = document.getElementById("sitemapTable");
+
+    for (let i = 0; i < urls.length; i++) {
+        const row = table.insertRow();
+        const locCell = row.insertCell(0);
+        const lastmodCell = row.insertCell(1);
+        const priorityCell = row.insertCell(2);
+
+        locCell.innerText = urls[i].getElementsByTagName("loc")[0].textContent;
+        lastmodCell.innerText = urls[i].getElementsByTagName("lastmod")[0].textContent;
+        priorityCell.innerText = urls[i].getElementsByTagName("priority")[0].textContent;
+    }
+</script>
+
+</body>
+</html>
