@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image to PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+        #inputImage {
+            width: 100%;
+            max-width: 620px;  /* half of the original width to fit the screen */
+            height: auto;
+            cursor: crosshair;
+        }
+        .inputField {
+            margin: 10px 0;
+            width: 90%;
+            max-width: 500px;
+        }
+        #coords {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Click on the Image to Add Text</h2>
+    <div class="container">
+        <img id="inputImage" src="image.png" alt="Organization Template">
+    </div>
+    
+    <input id="textInput" class="inputField" type="text" placeholder="Enter text here">
+    <button onclick="addText()">Add Text</button>
+
+    <div id="coords"></div>
+    <button onclick="generatePDF()">Download as PDF</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        let positions = [];
+        
+        document.getElementById('inputImage').addEventListener('click', function(event) {
+            const rect = event.target.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            document.getElementById('coords').innerText = `X: ${x}, Y: ${y}`;
+            positions.push({ x, y });
+        });
+
+        function addText() {
+            const text = document.getElementById('textInput').value;
+            if (positions.length > 0) {
+                const lastPosition = positions[positions.length - 1];
+                positions[positions.length - 1].text = text;
+
+                // Optionally show the text on the image (visual feedback)
+                const div = document.createElement('div');
+                div.style.position = 'absolute';
+                div.style.left = lastPosition.x + 'px';
+                div.style.top = lastPosition.y + 'px';
+                div.style.color = 'black';
+                div.style.fontSize = '14px';
+                div.textContent = text;
+                document.querySelector('.container').appendChild(div);
+
+                document.getElementById('textInput').value = '';  // Clear input field
+            }
+        }
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'px',
+                format: [1240, 1754]
+            });
+
+            const img = new Image();
+            img.src = "image.png";
+            img.onload = function () {
+                // Add image to PDF
+                doc.addImage(img, 'PNG', 0, 0, 1240, 1754);
+
+                // Add text to PDF
+                doc.setFontSize(14);
+                positions.forEach(pos => {
+                    if (pos.text) {
+                        doc.text(pos.text, pos.x, pos.y);
+                    }
+                });
+
+                // Save the PDF
+                doc.save("output.pdf");
+            };
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Java Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Java Code Display</h1>
+    <pre><code>
+package newdatabse;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.*;
+import javax.swing.*;
+
+public class NewDatabse { 
+    public static void main(String[] args) {
+        JFrame jf = new JFrame("Database ");
+        JTextField tfname = new JTextField();
+        JTextField tfaddress = new JTextField();
+        JTextField tfphone = new JTextField();
+        JButton jbinsert = new JButton("Insert");
+        JButton jbdelete = new JButton("Delete");
+        jf.setSize(500, 500);
+        tfname.setBounds(5, 5, 100, 50);
+        tfaddress.setBounds(5, 60, 100, 50);
+        tfphone.setBounds(5, 115, 100, 50);
+        jbinsert.setBounds(5, 170, 100, 50);
+        jf.add(tfname);
+        jf.add(tfaddress);
+        jf.add(tfphone);
+        jf.add(jbinsert);
+        jf.setLayout(null);
+        jf.setVisible(true);
+         
+        jbinsert.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Connection con;
+                try {
+                    // TODO code application logic here
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(NewDatabse.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    String url = "jdbc:mysql://localhost:3306/sukunacampus";
+                    con = DriverManager.getConnection(url, "root", "");
+                    Statement st = con.createStatement();
+                    String name = tfname.getText();
+                    String address = tfaddress.getText();
+                    String sql = "INSERT INTO `studentinfo`(`sid`, `sname`, `saddress`, `sphno`) VALUES ('31', '" + name + "', '" + address + "', '9499449')";
+                    st.executeUpdate(sql); 
+                    System.out.println("connected successfully");
+                } catch (Exception ee) {
+                    System.out.println(ee.toString());
+                }
+            }
+        });
+    }
+}
+    </code></pre>
+</body>
+</html>

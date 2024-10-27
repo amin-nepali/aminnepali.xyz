@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .header img {
+            width: 80px;
+            vertical-align: middle;
+            position: absolute;
+            top: 0;
+        }
+        .header img.left {
+            left: 0;
+        }
+        .header img.right {
+            right: 0;
+        }
+        .header .govt-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .header .sub-title {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        .photo-box {
+            width: 100%;
+            max-width: 150px;
+            height: 150px;
+            border: 1px solid #000;
+            margin: 20px auto;
+        }
+        .content {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .content .section {
+            margin-bottom: 20px;
+        }
+        .content .section label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        .content .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+        .content .table th, .content .table td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+            word-wrap: break-word;
+        }
+        .content .footer {
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .header img {
+                width: 60px;
+            }
+            .header .govt-name {
+                font-size: 16px;
+            }
+            .header .sub-title {
+                font-size: 14px;
+            }
+            .content .section label {
+                width: auto;
+                display: block;
+                margin-bottom: 5px;
+            }
+            .content .table th, .content .table td {
+                padding: 5px;
+            }
+            .photo-box {
+                max-width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Emblem_of_Nepal.svg" alt="Nepal Emblem" class="left">
+        <div>
+            <div class="govt-name">बेलवारी नगरपालिकाका</div>
+            <div class="sub-title">नगर कार्यपालिकाको कार्यालय</div>
+            <div class="sub-title">बेलवारी, मोरङ</div>
+            <div class="sub-title">कोशी प्रदेश, नेपाल</div>
+        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Emblem_of_Nepal.svg" alt="Nepal Emblem" class="right">
+    </div>
+
+    <div class="photo-box"></div>
+
+    <div class="content">
+        <div class="section">
+            <label>नामथर:</label> .................................................................<br>
+            <label>जन्म मिति:</label> .................................................................<br>
+            <label>ब्लड ग्रुप:</label> .................................................................<br>
+            <label>स्थायी ठेगाना:</label> .................................................................<br>
+            <label>पति/पत्नीको नामथर:</label> .................................................................<br>
+            <label>जन्म मिति:</label> .................................................................<br>
+            <label>न.प्र.प.न./रा.प.न.:</label> .................................................................<br>
+            <label>जारी मिति:</label> .................................................................<br>
+            <label>जिल्ला:</label> .................................................................<br>
+            <label>परिचय पत्र जारी मिति:</label> .................................................................<br>
+            <label>स्वरोजगार क्षेत्र:</label> .................................................................<br>
+        </div>
+
+        <div class="section">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>देखि</th>
+                        <th>सम्म</th>
+                        <th>नविकरण गर्ने अधिकारी</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            प्रमाणित गर्नेको दस्तखत: ................................................<br>
+            नामथर: ................................................<br>
+            पद: ................................................<br>
+        </div>
+    </div>
+
+</body>
+</html>
